@@ -38,8 +38,7 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func fqaHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Fprint(w, "<h1>FQA</h1><p>Q: Is there a free version?</p><p>A: Yes we offer a free 30 days trial</p>")
+	executeTemplate(w, "templates/faq.gohtml")
 }
 
 func notFound(w http.ResponseWriter, r *http.Request) {
