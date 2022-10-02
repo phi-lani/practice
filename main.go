@@ -2,31 +2,24 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/phi-lani/webApp/views"
 )
 
 func executeTemplate(w http.ResponseWriter, filepath string) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	t, err := views.Parse(filepath)
 
-	tpl, err := template.ParseFiles(filepath)
-	if err != nil {
-		// Failing to parse due to invalid information inside the template.
-		log.Printf("Parsing template: %v", err)
-		http.Error(w, "There was an error parsing the templete", http.StatusInternalServerError)
-		return
-	}
-
-	err = tpl.Execute(w, nil)
 	if err != nil {
 		// Invalid information during randering
 		log.Printf("Parsing template: %v", err)
 		http.Error(w, "There was an error executing the templete", http.StatusInternalServerError)
 		return
 	}
+
+	t.Execute(w, nil)
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
