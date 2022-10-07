@@ -16,6 +16,9 @@ func main() {
 	tpl := views.Must(views.Parse("templates/home.gohtml"))
 	r.Get("/", controllers.StaticHandler(tpl))
 
+	tpl = views.Must(views.Parse("templates/about.gohtml"))
+	r.Get("/about", controllers.StaticHandler(tpl))
+
 	tpl = views.Must(views.Parse("templates/contact.gohtml"))
 	r.Get("/contact", controllers.StaticHandler(tpl))
 
