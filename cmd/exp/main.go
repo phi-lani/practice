@@ -1,24 +1,14 @@
 package main
 
-import (
-	"html/template"
-	"os"
-)
+import "fmt"
+
+func blah() {
+	panic("...")
+}
 
 func main() {
-	t, err := template.ParseFiles("hello.gohtml")
-	if err != nil {
-		panic(err)
-	}
+	numbers := []int{1, 2, 3}
 
-	user := struct {
-		Name string
-	}{
-		Name: "Philani Gumede",
-	}
+	fmt.Println(numbers[4])
 
-	err = t.Execute(os.Stdout, user)
-	if err != nil {
-		panic(err)
-	}
 }
