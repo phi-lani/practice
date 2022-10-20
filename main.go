@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/phi-lani/webApp/controllers"
+	"github.com/phi-lani/webApp/templates"
 	"github.com/phi-lani/webApp/views"
 )
 
@@ -13,16 +14,16 @@ func main() {
 
 	r := chi.NewRouter()
 
-	tpl := views.Must(views.Parse("templates/home.gohtml"))
+	tpl := views.Must(views.ParseFS(templates.FS, "home.gohtml"))
 	r.Get("/", controllers.StaticHandler(tpl))
 
-	tpl = views.Must(views.Parse("templates/about.gohtml"))
+	tpl = views.Must(views.ParseFS(templates.FS, "about.gohtml"))
 	r.Get("/about", controllers.StaticHandler(tpl))
 
-	tpl = views.Must(views.Parse("templates/contact.gohtml"))
+	tpl = views.Must(views.ParseFS(templates.FS, "contact.gohtml"))
 	r.Get("/contact", controllers.StaticHandler(tpl))
 
-	tpl = views.Must(views.Parse("templates/faq.gohtml"))
+	tpl = views.Must(views.ParseFS(templates.FS, "faq.gohtml"))
 	r.Get("/faq", controllers.StaticHandler(tpl))
 
 	fmt.Println("Starting the server on :3000...")
