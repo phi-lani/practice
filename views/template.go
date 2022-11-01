@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// Template struct from the HTML template package.
 type Template struct {
 	tpl *template.Template
 }
@@ -33,6 +34,7 @@ func ParseFS(fs fs.FS, pattern string) (Template, error) {
 	return t, nil
 }
 
+// Parsing the file before we execute it.
 func Parse(filepath string) (Template, error) {
 	tpl, err := template.ParseFiles(filepath)
 	if err != nil {
@@ -47,6 +49,8 @@ func Parse(filepath string) (Template, error) {
 	return t, nil
 }
 
+// Assuming that at this point the template is already parsed and ready
+// to be executed.
 func (t Template) Execute(w http.ResponseWriter, data interface{}) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
