@@ -26,8 +26,9 @@ func main() {
 	tpl = views.Must(views.ParseFS(templates.FS, "faq.gohtml", "tailwind.gohtml"))
 	r.Get("/faq", controllers.FAQ(tpl))
 
-	tpl = views.Must(views.ParseFS(templates.FS, "signup.gohtml", "tailwind.gohtml"))
-	r.Get("/signup", controllers.StaticHandler(tpl))
+	users := controllers.Users{}
+	users.Tempalates.New = views.Must(views.ParseFS(templates.FS, "signup.gohtml", "tailwind.gohtml"))
+	r.Get("/signup", users.New)
 
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", r)
