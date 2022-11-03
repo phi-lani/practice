@@ -2,13 +2,11 @@ package controllers
 
 import (
 	"net/http"
-
-	"github.com/phi-lani/webApp/views"
 )
 
 type Users struct {
 	Tempalates struct {
-		New views.Template
+		New Template
 	}
 }
 
