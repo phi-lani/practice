@@ -29,6 +29,7 @@ func main() {
 	users := controllers.Users{}
 	users.Tempalates.New = views.Must(views.ParseFS(templates.FS, "signup.gohtml", "tailwind.gohtml"))
 	r.Get("/signup", users.New)
+	r.Post("/users", users.Create)
 
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", r)
