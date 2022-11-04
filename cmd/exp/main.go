@@ -1,14 +1,42 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
 
-func blah() {
-	panic("...")
+	_ "github.com/jackc/pgx/v4/stdlib"
+)
+
+type DBconfig struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
+	Database string
+	SSLMode  string
 }
 
+func (cfg DBconfig) String() string {
+	return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.Database, cfg.SSLMode)
+}
 func main() {
-	numbers := []int{1, 2, 3}
+	cfg := DBconfig{
+		Host:     "localhost",
+		Port:     "5432",
+		User:     "baloo",
+		Password: "junglebook",
+		Database: "picshare",
+		SSLMode:  "disable",
+	}
+	db, err := sql.Open("pgx", cfg.String())
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
 
-	fmt.Println(numbers[4])
-
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Connected")
 }
